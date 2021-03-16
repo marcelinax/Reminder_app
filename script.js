@@ -26,11 +26,13 @@ class Reminder {
 
 class Reminders {
   constructor() {
-    this.initCreateReminder();
+    if (location.pathname === "/edit.html") {
+      this.initCreateReminder();
+    }
   }
   createReminder() {
     const title = document.getElementById("title").value;
-    const description = document.getElementById("description").value;
+    const description = document.getElementById("content").value;
     const date = document.getElementById("date").value;
 
     const re = new Reminder(title, description, date);
@@ -39,8 +41,8 @@ class Reminders {
     // return re;
   }
   initCreateReminder() {
-    const addBtn = document.querySelector(".add-btn");
-    addBtn.addEventListener("click", () => {
+    const saveBtn = document.querySelector(".save-btn");
+    saveBtn.addEventListener("click", () => {
       this.createReminder();
     });
   }

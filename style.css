@@ -6,17 +6,27 @@
   font-family: "Poppins", sans-serif;
 }
 
+.edit-body {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
 header {
   background-image: url("header.svg");
   width: 100%;
   height: 219px;
   background-repeat: no-repeat;
   background-size: 100%;
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 main {
+  margin-top: 215px;
   background-image: url("notes.svg");
-  height: calc(100vh - 105px - 219px);
+  background-position-y: 30px;
+  height: calc(100vh - 105px - 219px - 1.2rem);
   width: 100%;
   background-repeat: no-repeat;
   background-size: contain;
@@ -44,7 +54,126 @@ main h6 {
   font-size: 0.7rem;
   font-weight: 300;
   margin-top: 1rem;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
+}
+
+.edit {
+  background-image: url("background.svg");
+  height: calc(100vh - 219px);
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.edit .set-reminder-box-parent {
+  z-index: 900;
+  width: 100%;
+  height: calc(100vh);
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  left: 0;
+  top: 0;
+  -webkit-backdrop-filter: blur(30px);
+          backdrop-filter: blur(30px);
+}
+
+.edit .set-reminder-box-parent .set-reminder-box {
+  margin-top: 100px;
+  width: 315px;
+  height: 277px;
+  background-color: #ffffff;
+  border-radius: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: relative;
+}
+
+.edit .set-reminder-box-parent .set-reminder-box h3 {
+  font-size: 22px;
+  font-weight: bolder;
+  margin: 30px 1.4rem;
+  text-align: left;
+  width: 90%;
+}
+
+.edit .set-reminder-box-parent .set-reminder-box .inputs-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: -0.7rem;
+}
+
+.edit .set-reminder-box-parent .set-reminder-box .inputs-box input {
+  width: 85%;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #ededed;
+  border: 1px solid #ededed;
+  color: #a1a1a1;
+  font-size: 15px;
+  margin-bottom: 1.3rem;
+  padding-left: 10px;
+  outline: none;
+}
+
+.edit .set-reminder-box-parent .set-reminder-box .inputs-box #date {
+  padding-right: 0.5rem;
+}
+
+.edit .set-reminder-box-parent .btn-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 55%;
+}
+
+.edit .set-reminder-box-parent .btn-box .btn {
+  margin-top: 3rem;
+  background-color: #7ecbff;
+  color: white;
+  border-radius: 5px;
+  border: 1px solid #7ecbff;
+  font-size: 16px;
+  width: 48%;
+}
+
+.edit .set-reminder-box-parent .btn-box .cancel-btn {
+  background-color: #ffffff;
+  color: #7ecbff;
+  border: 1px solid #ffffff;
 }
 
 .bottom-nav {

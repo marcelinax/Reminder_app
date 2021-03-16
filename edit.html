@@ -13,29 +13,25 @@
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body class="edit-body">
     <header></header>
-    <main>
-      <div class="container">
-        <h5>No reminders</h5>
-        <h6>
-          Create a reminder and it will
-          <br />
-          show up here.
-        </h6>
+    <main class="edit">
+      <div class="set-reminder-box-parent">
+        <div class="set-reminder-box">
+          <h3>When to remind?</h3>
+          <div class="inputs-box">
+            <input type="text" id="title" placeholder="Title" />
+            <input type="text" id="content" placeholder="Content" />
+            <input type="datetime-local" id="date" />
+          </div>
+        </div>
+        <div class="btn-box">
+          <button class="btn cancel-btn">CANCEL</button>
+          <button class="btn save-btn">SAVE</button>
+        </div>
       </div>
     </main>
-    <div class="bottom-nav">
-      <button class="nav-btn">
-        <a href=""><img src="menu.svg" alt="" /></a>
-      </button>
-      <button class="add-btn">
-        <a href=""><img src="plus.svg" alt="" /></a>
-      </button>
-      <button class="nav-btn">
-        <a href=""><img src="magnifying-glass.svg" alt="" /></a>
-      </button>
-    </div>
+
     <script src="script.js"></script>
   </body>
 </html>
