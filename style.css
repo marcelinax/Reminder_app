@@ -22,7 +22,7 @@ header {
   left: 0;
 }
 
-main {
+.empty {
   margin-top: 215px;
   background-image: url("notes.svg");
   background-position-y: 30px;
@@ -46,15 +46,116 @@ main {
           align-items: center;
 }
 
-main h5 {
+.empty h5 {
   font-size: 1.1rem;
 }
 
-main h6 {
+.empty h6 {
   font-size: 0.7rem;
   font-weight: 300;
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+.home {
+  background-color: #ffffff;
+  margin-top: 215px;
+  height: calc(100vh - 105px - 219px - 1.2rem);
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  text-align: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.home h5,
+.home h6 {
+  display: none;
+}
+
+.home .reminders-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+}
+
+.home .reminders-box .reminder {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 150px;
+  background-color: #ffa447;
+  border-radius: 20px;
+  margin-bottom: 22px;
+  padding: 7px 0.8rem 18px;
+  text-align: left;
+  color: #000000;
+  min-height: 116px;
+}
+
+.home .reminders-box .reminder h4 {
+  font-size: 16px;
+}
+
+.home .reminders-box .reminder div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 80%;
+}
+
+.home .reminders-box .reminder div p {
+  font-size: 10px;
+}
+
+.home .reminders-box .reminder .date-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  min-height: 25px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #000000;
+  border-radius: 5px;
+  border: 1px solid #000000;
+  background-color: transparent;
+  width: 70%;
+  margin-top: 11px;
+}
+
+.home .reminders-box .reminder .date-box p {
+  font-size: 9px;
+  margin: 5px auto;
 }
 
 .edit {
@@ -172,8 +273,12 @@ main h6 {
 
 .edit .set-reminder-box-parent .btn-box .cancel-btn {
   background-color: #ffffff;
-  color: #7ecbff;
   border: 1px solid #ffffff;
+}
+
+.edit .set-reminder-box-parent .btn-box .cancel-btn a {
+  text-decoration: none;
+  color: #7ecbff;
 }
 
 .bottom-nav {

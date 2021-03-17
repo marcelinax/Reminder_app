@@ -19,7 +19,8 @@ header {
   top: 0;
   left: 0;
 }
-main {
+
+.empty {
   margin-top: 215px;
   background-image: url("notes.svg");
   background-position-y: 30px;
@@ -41,6 +42,71 @@ main {
     font-weight: 300;
     margin-top: 1rem;
     margin-bottom: 1rem;
+  }
+}
+.home {
+  background-color: #ffffff;
+  margin-top: 215px;
+  height: calc(100vh - 105px - 219px - 1.2rem);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: center;
+  align-items: flex-start;
+
+  h5,
+  h6 {
+    display: none;
+  }
+  .reminders-box {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    .reminder {
+      display: flex;
+      flex-direction: column;
+      width: 150px;
+      background-color: #ffa447;
+      border-radius: 20px;
+      margin-bottom: 22px;
+
+      padding: 7px 0.8rem 18px;
+      text-align: left;
+      color: #000000;
+      min-height: 116px;
+      h4 {
+        font-size: 16px;
+      }
+      div {
+        display: flex;
+        width: 80%;
+
+        p {
+          font-size: 10px;
+        }
+      }
+
+      .date-box {
+        display: flex;
+        min-height: 25px;
+        justify-content: center;
+        align-items: center;
+        color: #000000;
+        border-radius: 5px;
+        border: 1px solid #000000;
+        background-color: transparent;
+        width: 70%;
+        margin-top: 11px;
+
+        p {
+          font-size: 9px;
+          margin: 5px auto;
+        }
+      }
+    }
   }
 }
 .edit {
@@ -118,8 +184,11 @@ main {
       }
       .cancel-btn {
         background-color: #ffffff;
-        color: #7ecbff;
         border: 1px solid #ffffff;
+        a {
+          text-decoration: none;
+          color: #7ecbff;
+        }
       }
     }
   }

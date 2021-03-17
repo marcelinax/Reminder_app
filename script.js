@@ -1,50 +1,78 @@
 "use strict";
 
 class Reminder {
-  constructor(title, description, date) {
+  constructor(title, content, date) {
     this.title = title;
-    this.description = description;
+    this.content = content;
     this.date = date;
-    // this.renderReminder();
+    if (location.pathname === "/index.html") {
+      this.renderReminder();
+    }
   }
-
   renderReminder() {
-    const reminderBox = document.createElement("div");
+    const main = document.querySelector("main");
+    main.classList.remove("empty");
+    main.classList.add("home");
+    const container = document.querySelector(".container");
+    const remindersBox = document.createElement("div");
+    remindersBox.classList.add("reminders-box");
 
+    container.appendChild(remindersBox);
     let content = `
-    <div class="reminder-box">
-        <h5 class="title">${this.title}</h5>
-        <p class="description">${this.description}</p>
-        <p class="date">${this.date}</p>
-    </div>
-  `;
-
-    reminderBox.innerHTML = content;
-    //   return reminderBox;
+     <div class="reminder">
+            <h4>${this.title}</h4>
+            <div><p>${this.content}</p></div>
+            <div class="date-box">
+              <p>${this.date}</p>
+            </div>
+          </div>
+    `;
+    remindersBox.innerHTML = content;
+    return remindersBox;
   }
 }
 
 class Reminders {
+  reminders = [];
   constructor() {
+    this.readFromLocalStorage();
     if (location.pathname === "/edit.html") {
       this.initCreateReminder();
     }
   }
   createReminder() {
     const title = document.getElementById("title").value;
-    const description = document.getElementById("content").value;
+    const content = document.getElementById("content").value;
     const date = document.getElementById("date").value;
 
-    const re = new Reminder(title, description, date);
-
-    console.log(re);
-    // return re;
+    const re = new Reminder(title, content, date);
+    this.reminders.push(re);
+    this.saveInLocalStorage();
   }
   initCreateReminder() {
     const saveBtn = document.querySelector(".save-btn");
     saveBtn.addEventListener("click", () => {
       this.createReminder();
     });
+  }
+
+  saveInLocalStorage() {
+    localStorage.setItem("reminders", JSON.stringify(this.reminders));
+  }
+  readFromLocalStorage() {
+    this.reminders = [];
+    const localReminder = localStorage.getItem("reminders");
+    if (localReminder) {
+      const remindersShapes = JSON.parse(localStorage.getItem("reminders"));
+      remindersShapes.forEach((reminderShape) => {
+        const reminder = new Reminder(
+          reminderShape.title,
+          reminderShape.content,
+          reminderShape.date
+        );
+        this.reminders.push(reminder);
+      });
+    }
   }
 }
 
