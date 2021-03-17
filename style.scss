@@ -8,6 +8,10 @@
   background-color: rgba(0, 0, 0, 0.2);
 }
 
+.container {
+  width: 100%;
+}
+
 header {
   background-image: url("header.svg");
   width: 100%;
@@ -61,22 +65,36 @@ header {
   }
   .reminders-box {
     display: flex;
-    width: 100;
-    flex-wrap: wrap;
+    width: 100%;
+    margin: auto;
+    margin-bottom: 7rem;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    overflow: scroll;
+    .reminders-box-l,
+    .reminders-box-r {
+      display: flex;
+      width: 50%;
+      height: 100%;
+      flex-direction: column;
+    }
+    .reminders-box-l {
+      align-items: flex-end;
+    }
+    .reminders-box-r {
+      align-items: flex-start;
+    }
     .reminder {
       display: flex;
       flex-direction: column;
       width: 150px;
       background-color: #ffa447;
       border-radius: 20px;
-      margin-bottom: 22px;
-
+      margin: 11px;
       padding: 7px 0.8rem 18px;
       text-align: left;
       color: #000000;
-      min-height: 116px;
+      box-shadow: 0 0 13px rgba(0, 0, 0, 0.2);
       h4 {
         font-size: 16px;
       }
@@ -181,15 +199,12 @@ header {
         border: 1px solid #7ecbff;
         font-size: 16px;
         width: 48%;
-        a {
-          text-decoration: none;
-          color: white;
-        }
       }
       .cancel-btn {
         background-color: #ffffff;
         border: 1px solid #ffffff;
         a {
+          text-decoration: none;
           color: #7ecbff;
         }
       }
@@ -197,6 +212,9 @@ header {
   }
 }
 .bottom-nav {
+  position: fixed;
+  bottom: 1.2rem;
+  left: 0;
   display: flex;
   justify-content: space-around;
   align-items: flex-end;
@@ -206,6 +224,15 @@ header {
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: center center;
+  &::after {
+    content: "";
+    width: 100%;
+    position: fixed;
+    height: 1.24rem;
+    background-color: white;
+    bottom: 0;
+    left: 0;
+  }
   .nav-btn {
     width: 21px;
     height: 21px;

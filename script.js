@@ -1,7 +1,8 @@
 "use strict";
 
 class Reminder {
-  constructor(title, content, date, color) {
+  constructor(index, title, content, date, color) {
+    this.index = index;
     this.title = title;
     this.content = content;
     this.date = date;
@@ -22,8 +23,10 @@ class Reminder {
           </div>
     `;
     reminderElement.innerHTML = content;
-    const remindersBox = document.querySelector(".reminders-box");
-    remindersBox.appendChild(reminderElement);
+    const reminderRenderBox = document.querySelector(
+      ".reminders-box-" + (this.index % 2 == 0 ? "r" : "l")
+    );
+    reminderRenderBox.appendChild(reminderElement);
   }
 }
 
@@ -35,14 +38,15 @@ class Reminders {
       this.initCreateReminder();
     }
     if (
-      location.pathname === "/index.html" ||
-      (location.pathname === "/" && localStorage.getItem("reminders"))
+      (location.pathname === "/index.html" || location.pathname === "/") &&
+      localStorage.getItem("reminders")
     ) {
-      this.createRemindersBox();
+      this.createReminderBoxes();
       this.readFromLocalStorage();
     }
   }
-  createRemindersBox() {
+  // potrzeba takich dwóch bo tak :/
+  createReminderBoxes(index) {
     const main = document.querySelector("main");
     main.classList.remove("empty");
     main.classList.add("home");
@@ -50,6 +54,15 @@ class Reminders {
     const container = document.querySelector(".container");
     const remindersBox = document.createElement("div");
     remindersBox.classList.add("reminders-box");
+    // left reminders
+    const remindersBoxL = document.createElement("div");
+    remindersBoxL.classList.add("reminders-box-l");
+    remindersBox.appendChild(remindersBoxL);
+    // right reminders
+    const remindersBoxR = document.createElement("div");
+    remindersBoxR.classList.add("reminders-box-r");
+    remindersBox.appendChild(remindersBoxR);
+
     container.appendChild(remindersBox);
   }
   createReminder() {
@@ -70,8 +83,7 @@ class Reminders {
       alert("Select a date!");
       return;
     }
-
-    const reminder = new Reminder(title, content, date, color);
+    const reminder = new Reminder(0, title, content, date, color);
     this.reminders.push(reminder);
     this.saveInLocalStorage();
   }
@@ -79,6 +91,7 @@ class Reminders {
     const saveBtn = document.querySelector(".save-btn");
     saveBtn.addEventListener("click", () => {
       this.createReminder();
+      location.pathname = "/index.html";
     });
   }
   getRandomColor() {
@@ -93,8 +106,9 @@ class Reminders {
     const localReminder = localStorage.getItem("reminders");
     if (localReminder) {
       const remindersShapes = JSON.parse(localStorage.getItem("reminders"));
-      remindersShapes.forEach((reminderShape) => {
+      remindersShapes.forEach((reminderShape, index) => {
         const reminder = new Reminder(
+          index + 1,
           reminderShape.title,
           reminderShape.content,
           reminderShape.date,
