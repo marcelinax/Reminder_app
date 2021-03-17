@@ -87,18 +87,15 @@ header {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  width: 100;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
-  -webkit-box-align: start;
-      -ms-flex-align: start;
-          align-items: flex-start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .home .reminders-box .reminder {
@@ -271,13 +268,17 @@ header {
   width: 48%;
 }
 
+.edit .set-reminder-box-parent .btn-box .btn a {
+  text-decoration: none;
+  color: white;
+}
+
 .edit .set-reminder-box-parent .btn-box .cancel-btn {
   background-color: #ffffff;
   border: 1px solid #ffffff;
 }
 
 .edit .set-reminder-box-parent .btn-box .cancel-btn a {
-  text-decoration: none;
   color: #7ecbff;
 }
 
