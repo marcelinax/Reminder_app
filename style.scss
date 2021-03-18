@@ -116,12 +116,12 @@ header {
         border-radius: 5px;
         border: 1px solid #000000;
         background-color: transparent;
-        width: 70%;
+        width: 80%;
         margin-top: 11px;
 
         p {
           font-size: 9px;
-          margin: 5px auto;
+          margin: 5px 3px;
         }
       }
     }
@@ -146,7 +146,7 @@ header {
     flex-direction: column;
     left: 0;
     top: 0;
-    backdrop-filter: blur(30px);
+    backdrop-filter: blur(10px);
     .set-reminder-box {
       margin-top: 100px;
       width: 315px;

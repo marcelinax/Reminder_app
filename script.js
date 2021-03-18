@@ -18,7 +18,7 @@ class Reminder {
             <h4>${this.title}</h4>
             <div><p>${this.content}</p></div>
             <div class="date-box">
-              <p>${this.date}</p>
+              <p>${this.formatDate(this.date)}</p>
             </div>
           </div>
     `;
@@ -27,6 +27,51 @@ class Reminder {
       ".reminders-box-" + (this.index % 2 == 0 ? "r" : "l")
     );
     reminderRenderBox.appendChild(reminderElement);
+  }
+  formatDate(d) {
+    const date = new Date(d);
+    const now = new Date();
+    // const dateString = `${date.toLocaleTimeString()}`;
+    const dateTime = `${date.getHours()}:${date.getMinutes()}`;
+    if (
+      now.getMonth() == date.getMonth() &&
+      now.getFullYear() == date.getFullYear()
+    ) {
+      if (now.getDate() == date.getDate()) {
+        return `Today, at ${dateTime}`;
+      } else if (now.getDate() + 1 == date.getDate()) {
+        return `Tomorrow, at ${dateTime}`;
+      } else
+        return `${this.getWeekDay(date)}. ${date
+          .getDate()
+          .toString()
+          .padStart(2, "0")}.${(date.getMonth() + 1)
+          .toString()
+          .padStart(2, "0")}, at ${dateTime}`;
+    }
+    return `${this.getWeekDay(
+      date
+    )}. ${date.toLocaleDateString()}, at ${dateTime}`;
+  }
+  getWeekDay(d) {
+    const date = new Date(d);
+    const weekday = date.getDay();
+    switch (weekday) {
+      case 0:
+        return "Sun";
+      case 1:
+        return "Mon";
+      case 2:
+        return "Tue";
+      case 3:
+        return "Wed";
+      case 4:
+        return "Thu";
+      case 5:
+        return "Fri";
+      case 6:
+        return "Sat";
+    }
   }
 }
 
@@ -45,8 +90,8 @@ class Reminders {
       this.readFromLocalStorage();
     }
   }
-  // potrzeba takich dwóch bo tak :/
-  createReminderBoxes(index) {
+
+  createReminderBoxes() {
     const main = document.querySelector("main");
     main.classList.remove("empty");
     main.classList.add("home");
@@ -98,6 +143,7 @@ class Reminders {
     const colors = ["#FFA447", "#1ECCC3", "#FFA4A3", "#7ECBFF", "#FFA6C4"];
     return colors[Math.floor(Math.random() * colors.length)];
   }
+
   saveInLocalStorage() {
     localStorage.setItem("reminders", JSON.stringify(this.reminders));
   }
