@@ -1,34 +1,7 @@
 "use strict";
 
-class Reminder {
-  constructor(index, title, content, date, color) {
-    this.index = index;
-    this.title = title;
-    this.content = content;
-    this.date = date;
-    this.color = color;
-    if (location.pathname === "/index.html" || location.pathname === "/") {
-      this.renderReminder();
-    }
-  }
-  renderReminder() {
-    const reminderElement = document.createElement("div");
-    let content = `
-     <div class="reminder" style="background-color: ${this.color}">
-            <h4>${this.title}</h4>
-            <div><p>${this.content}</p></div>
-            <div class="date-box">
-              <p>${this.formatDate(this.date)}</p>
-            </div>
-          </div>
-    `;
-    reminderElement.innerHTML = content;
-    const reminderRenderBox = document.querySelector(
-      ".reminders-box-" + (this.index % 2 == 0 ? "r" : "l")
-    );
-    reminderRenderBox.appendChild(reminderElement);
-  }
-  formatDate(d) {
+class DateFormater {
+  static formatDate(d) {
     const date = new Date(d);
     const now = new Date();
     // const dateString = `${date.toLocaleTimeString()}`;
@@ -53,7 +26,7 @@ class Reminder {
       date
     )}. ${date.toLocaleDateString()}, at ${dateTime}`;
   }
-  getWeekDay(d) {
+  static getWeekDay(d) {
     const date = new Date(d);
     const weekday = date.getDay();
     switch (weekday) {
@@ -75,8 +48,45 @@ class Reminder {
   }
 }
 
+class Reminder {
+  constructor(index, title, content, date, color, past = false) {
+    this.index = index;
+    this.title = title;
+    this.content = content;
+    this.date = date;
+    this.color = color;
+    if (
+      location.pathname === "/index.html" ||
+      location.pathname === "/" ||
+      location.pathname === "/past.html"
+    ) {
+      if (!past) this.renderReminder();
+      else if (past && location.pathname === "/past.html")
+        this.renderReminder();
+    }
+  }
+  renderReminder() {
+    const reminderElement = document.createElement("div");
+    let content = `
+     <div class="reminder" style="background-color: ${this.color}">
+            <h4>${this.title}</h4>
+            <div class="content-box"><p>${this.content}</p></div>
+            <div class="date-box">
+              <p>${DateFormater.formatDate(this.date)}</p>
+            </div>
+          </div>
+    `;
+    reminderElement.innerHTML = content;
+    const reminderRenderBox = document.querySelector(
+      ".reminders-box-" + (this.index % 2 == 0 ? "r" : "l")
+    );
+    reminderRenderBox.appendChild(reminderElement);
+  }
+}
+
 class Reminders {
   reminders = [];
+  pastReminders = [];
   constructor() {
     if (location.pathname === "/edit.html") {
       this.readFromLocalStorage();
@@ -84,7 +94,19 @@ class Reminders {
     }
     if (
       (location.pathname === "/index.html" || location.pathname === "/") &&
-      localStorage.getItem("reminders")
+      localStorage.getItem("reminders") &&
+      JSON.parse(localStorage.getItem("reminders")).length > 0
+    ) {
+      setInterval(() => {
+        this.calcTimeToReminder();
+      }, 1000);
+      this.createReminderBoxes();
+      this.readFromLocalStorage();
+      this.calcTimeToReminder();
+    } else if (
+      location.pathname === "/past.html" &&
+      localStorage.getItem("past-reminders") &&
+      JSON.parse(localStorage.getItem("past-reminders")).length > 0
     ) {
       this.createReminderBoxes();
       this.readFromLocalStorage();
@@ -146,6 +168,7 @@ class Reminders {
 
   saveInLocalStorage() {
     localStorage.setItem("reminders", JSON.stringify(this.reminders));
+    localStorage.setItem("past-reminders", JSON.stringify(this.pastReminders));
   }
   readFromLocalStorage() {
     this.reminders = [];
@@ -163,6 +186,66 @@ class Reminders {
         this.reminders.push(reminder);
       });
     }
+    const localPastReminders = localStorage.getItem("past-reminders");
+    if (localPastReminders) {
+      const pastRemindersShapes = JSON.parse(
+        localStorage.getItem("past-reminders")
+      );
+      pastRemindersShapes.forEach((reminderShape, index) => {
+        const reminder = new Reminder(
+          index + 1,
+          reminderShape.title,
+          reminderShape.content,
+          reminderShape.date,
+          reminderShape.color,
+          true
+        );
+        this.pastReminders.push(reminder);
+      });
+    }
+  }
+  calcTimeToReminder() {
+    const localReminders = JSON.parse(localStorage.getItem("reminders"));
+    const now = new Date();
+    localReminders.forEach((reminder) => {
+      const date = new Date(reminder.date);
+      const dif = date - now;
+
+      if (dif <= 0) {
+        this.renderReminderNotification(reminder);
+      }
+    });
+  }
+  renderReminderNotification(reminder) {
+    const audio = new Audio("bell.wav");
+    audio.play();
+
+    const notification = document.createElement("div");
+    notification.classList.add("notification");
+    const content = `<div class="notification-inside">
+    <div class="bell-bg"></div>
+    <h2 class="reminder-title">Reminder</h2>
+      <div class="desc">
+        <h3>${reminder.title}</h3>
+        <h5>${reminder.content}</h5>
+      </div>
+      <div class="time">
+        <h2>was at</h2>
+        <h5>${DateFormater.formatDate(reminder.date)}</h5>
+      </div>
+      <button onclick="location.reload()">OK</button>
+    </div>`;
+    notification.innerHTML = content;
+    document.body.appendChild(notification);
+
+    this.reminders = [
+      ...this.reminders.filter(
+        (r) => r.title != reminder.title && r.content != reminder.content
+      ),
+    ];
+    this.pastReminders = [...this.pastReminders, reminder];
+    this.saveInLocalStorage();
+    return notification;
   }
 }
 

@@ -66,7 +66,7 @@ header {
   .reminders-box {
     display: flex;
     width: 100%;
-    margin: auto;
+
     margin-bottom: 7rem;
     justify-content: center;
     align-items: flex-start;
@@ -76,6 +76,7 @@ header {
       display: flex;
       width: 50%;
       height: 100%;
+      margin: auto;
       flex-direction: column;
     }
     .reminders-box-l {
@@ -86,6 +87,7 @@ header {
     }
     .reminder {
       display: flex;
+
       flex-direction: column;
       width: 150px;
       background-color: #ffa447;
@@ -95,10 +97,11 @@ header {
       text-align: left;
       color: #000000;
       box-shadow: 0 0 13px rgba(0, 0, 0, 0.2);
+
       h4 {
         font-size: 16px;
       }
-      div {
+      .content-box {
         display: flex;
         width: 80%;
 
@@ -248,5 +251,66 @@ header {
     width: 21px;
     height: 21px;
     margin-bottom: 3.2rem;
+  }
+}
+
+.notification {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50000;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(#fff, 0.9);
+
+  .notification-inside {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+    width: 70%;
+    height: 60%;
+    background-color: white;
+    border-radius: 15px;
+    color: black;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2rem;
+    .bell-bg {
+      width: 90px;
+      height: 90px;
+      background-image: url("bell.gif");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border-radius: 50px;
+      box-shadow: 0 0 15px 2px rgba(0, 0, 0, 0.1);
+    }
+    .desc {
+      text-align: left;
+      width: 100%;
+    }
+    h2 {
+      font-size: 18px;
+      &.reminder-title {
+        margin-top: -1.2rem;
+      }
+    }
+    h3 {
+    }
+    button {
+      color: white;
+      border-radius: 5px;
+      border: 1px solid #000;
+      font-size: 16px;
+      width: 100%;
+      background-color: #000;
+      border: 1px solid #000;
+      text-decoration: none;
+      color: #fff;
+    }
   }
 }
